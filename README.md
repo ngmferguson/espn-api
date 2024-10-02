@@ -1,9 +1,9 @@
 ![](https://github.com/cwendt94/espn-api/workflows/Espn%20API/badge.svg)
-![](https://github.com/cwendt94/espn-api/workflows/Espn%20API%20Integration%20Test/badge.svg) [![codecov](https://codecov.io/gh/cwendt94/espn-api/branch/master/graphs/badge.svg)](https://codecov.io/gh/cwendt94/espn-api) [![Join the chat at https://gitter.im/ff-espn-api/community](https://badges.gitter.im/ff-espn-api/community.svg)](https://gitter.im/ff-espn-api/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![PyPI version](https://badge.fury.io/py/espn-api.svg)](https://badge.fury.io/py/espn-api)<a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img src="https://img.shields.io/badge/python-%3E=_3.8-teal.svg"></a>
-
+![](https://github.com/cwendt94/espn-api/workflows/Espn%20API%20Integration%20Test/badge.svg) [![codecov](https://codecov.io/gh/cwendt94/espn-api/branch/master/graphs/badge.svg)](https://codecov.io/gh/cwendt94/espn-api) [![Join the chat at https://gitter.im/ff-espn-api/community](https://badges.gitter.im/ff-espn-api/community.svg)](https://gitter.im/ff-espn-api/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![PyPI version](https://badge.fury.io/py/espn-api.svg)](https://badge.fury.io/py/espn-api)
 
 ## ESPN API
-This package uses ESPN's Fantasy API to extract data from any public or private league for **Fantasy Football and Basketball (NHL, MLB, and WNBA are in development)**.  
+## [NOTICE] Currently username and password are not working, ESPN recently changed their authentication. You can still access your private league using SWID and ESPN_S2.
+This package uses ESPN's Fantasy API to extract data from any public or private league for **Fantasy Football and Basketball**.  
 Please feel free to make suggestions, bug reports, and pull request for features or fixes!
 
 This package was inspired and based off of [rbarton65/espnff](https://github.com/rbarton65/espnff).
@@ -21,19 +21,15 @@ pip install espn_api
 ```
 
 ## Usage
-### [For Getting Started and API details head over to the Wiki!](https://github.com/cwendt94/espn-api/wiki)
 ```python
 # Football API
 from espn_api.football import League
 # Basketball API
 from espn_api.basketball import League
-# Hockey API
-from espn_api.hockey import League
-# Baseball API
-from espn_api.baseball import League
 # Init
 league = League(league_id=222, year=2019)
 ```
+[For more usage and API details head over to the Wiki!](https://github.com/cwendt94/espn-api/wiki)
 
 ### Run Tests
 ```
