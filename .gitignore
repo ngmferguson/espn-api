@@ -13,3 +13,10 @@ build
 dist
 env
 coverage*
+secrets.py
+*.vsidx
+*.lock
+*.sqlite
+.vs/fantasyStats/v17/.suo
+.vs/ProjectSettings.json
+.vs/PythonSettings.json
