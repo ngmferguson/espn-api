@@ -112,15 +112,19 @@ class League(BaseLeague):
 
     def top_scorer(self) -> Team:
         most_pf = sorted(self.teams, key=lambda x: x.points_for, reverse=True)
-        return most_pf[0]
+        return most_pf
     
     def least_scorer(self) -> Team:
         least_pf = sorted(self.teams, key=lambda x: x.points_for, reverse=False)
-        return least_pf[0]
+        return least_pf
 
     def most_points_against(self) -> Team:
         most_pa = sorted(self.teams, key=lambda x: x.points_against, reverse=True)
-        return most_pa[0]
+        return most_pa
+
+    def least_points_against(self) -> Team:
+        least_pa = sorted(self.teams, key=lambda x: x.points_against, reverse=False)
+        return least_pa
 
     def top_scored_week(self) -> Tuple[Team, int]:
         top_week_points = []

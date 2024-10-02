@@ -5,7 +5,7 @@ class Team(object):
     def __init__(self, data, roster, member, schedule, year):
         self.team_id = data['id']
         self.team_abbrev = data['abbrev']
-        self.team_name = "%s %s" % (data['location'], data['nickname'])
+        self.team_name = data['name']
         self.division_id = data['divisionId']
         self.division_name = '' # set by caller
         self.wins = data['record']['overall']['wins']
