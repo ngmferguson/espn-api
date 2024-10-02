@@ -7,6 +7,7 @@ from discord.ext.commands import Bot
 import os
 import webbrowser
 import FantasyFunctions
+import secrets
 
 POST_NOW = False # SET ME TO FALSE TO POST AT 9AM PST
 CHANNEL_ID = 866871591216480256 #TESTING: 1203254371262005269 || WEEKLY STATS: 866871591216480256
@@ -160,11 +161,8 @@ deltaTimeSeconds = deltaTime.total_seconds()
 
 print("Waiting " + str(deltaTimeSeconds) + " seconds...")
 time.sleep(deltaTimeSeconds)
-client.run('MTE5MjM2MjQ2OTgxMzkxOTgzNg.GFn46q.eCj5hKAo8WgpEc8XUY8Gut9G-QERVl0hPcvbUc')
-client.run('MTE5MjM2MjQ2OTgxMzkxOTgzNg.GFn46q.eCj5hKAo8WgpEc8XUY8Gut9G-QERVl0hPcvbUc')
- 
+client.run(secrets.TOKEN)
 
-#TOKEN: MTE5MjM2MjQ2OTgxMzkxOTgzNg.GFn46q.eCj5hKAo8WgpEc8XUY8Gut9G-QERVl0hPcvbUc
 
 
 
