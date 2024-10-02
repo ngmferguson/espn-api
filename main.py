@@ -9,6 +9,7 @@ import webbrowser
 import FantasyFunctions
 import secrets
 
+TESTING = False
 POST_NOW = False # SET ME TO FALSE TO POST AT 9AM PST
 CHANNEL_ID = 866871591216480256 #TESTING: 1203254371262005269 || WEEKLY STATS: 866871591216480256
 
@@ -21,40 +22,30 @@ client = discord.Client(intents=intents)
 async def PrintStats():
     statsChannel = client.get_channel(CHANNEL_ID) 
 
-    result = "WEEK " + str(FantasyFunctions.WEEK_NUM) + " STATS\n"
-    result += FantasyFunctions.GetStandings(client) + "\n"
-    result += FantasyFunctions.GetMatchupScores(client)
-    await statsChannel.send(result)
-    print("Printed Standings and Scores\n    Characters: " + str(len(result)) + "/2000")
-    result = FantasyFunctions.GetTopScorers(client) + "\n"
-    result += FantasyFunctions.GetBottomScorers(client) + "\n"
-    result += FantasyFunctions.GetHardestSchedule(client) + "\n"
-    result += FantasyFunctions.GetSoftestSchedule(client) + "\n"
-    result += FantasyFunctions.GetTopWeeklyScorers(client) + "\n"
-    result += FantasyFunctions.GetBottomWeeklyScorers(client) + "\n" + "\n"
-    await statsChannel.send(result)
-    print("Printed Top/Bottom Seasonal and Weekly Scorers\n    Characters: " + str(len(result)) + "/2000")
-    result = FantasyFunctions.GetBiggestBlowout(client) + "\n"
-    result += FantasyFunctions.GetClosestWin(client) + "\n"
-    result += FantasyFunctions.GetMostPtsInALoss(client) + "\n"
-    result += FantasyFunctions.GetLeastPtsInAWin(client) + "\n"
-    result += FantasyFunctions.GetBestLuck(client) + "\n"
-    result += FantasyFunctions.GetWorstLuck(client) + "\n"
-    result += FantasyFunctions.GetBestBench(client) + "\n"
-    result += FantasyFunctions.GetWorstBench(client) + "\n"
-    result += FantasyFunctions.GetUpsets(client) + "\n" + "\n"
-    await statsChannel.send(result)
-    print("Printed Blowout/Closecall, Luck, Bench, Upsets\n    Characters: " + str(len(result)) + "/2000")
+    await statsChannel.send("WEEK " + str(FantasyFunctions.WEEK_NUM) + " STATS\n")
+    await statsChannel.send(FantasyFunctions.GetStandings(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetMatchupScores(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetTopScorers(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBottomScorers(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetHardestSchedule(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetSoftestSchedule(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetTopWeeklyScorers(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBottomWeeklyScorers(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBiggestBlowout(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetClosestWin(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetMostPtsInALoss(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetLeastPtsInAWin(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBestLuck(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetWorstLuck(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBestBench(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetWorstBench(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetUpsets(client) + "\n")
     #players
-    result = FantasyFunctions.GetBestStartingPlayers(client) + "\n"
-    result += FantasyFunctions.GetBestBenchPlayers(client) + "\n" + "\n"
-    await statsChannel.send(result)
-    print("Printed player stats\n    Characters: " + str(len(result)) + "/2000")
+    await statsChannel.send(FantasyFunctions.GetBestStartingPlayers(client) + "\n")
+    await statsChannel.send(FantasyFunctions.GetBestBenchPlayers(client) + "\n")
     #managers
-    result = FantasyFunctions.GetMostEfficientManager(client) + "\n"
-    result += FantasyFunctions.CouldHaveWonIf(client)
-    await statsChannel.send(result)
-    print("Printed manager stats\n    Characters: " + str(len(result)) + "/2000")
+    await statsChannel.send(FantasyFunctions.GetMostEfficientManager(client) + "\n")
+    await statsChannel.send(FantasyFunctions.CouldHaveWonIf(client))
 
 async def AssignWinnersAndLosers():
     server = discord.utils.get(client.guilds, id=866871459473522708)
@@ -110,12 +101,13 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online)
     await PrintStats()
     print("Printed Stats")
-    await AssignWinnersAndLosers()
-    print("Assigned winners and losers")
-    await AssignSeedsToNicknames()
-    print("Changed seeds in nicknames")
-    await WipeWinnersLounge()
-    print("Wiped the winners lounge")
+    if not TESTING:
+        await AssignWinnersAndLosers()
+        print("Assigned winners and losers")
+        await AssignSeedsToNicknames()
+        print("Changed seeds in nicknames")
+        await WipeWinnersLounge()
+        print("Wiped the winners lounge")
     print("Weekly tasks completed!")
 
 
@@ -162,9 +154,3 @@ deltaTimeSeconds = deltaTime.total_seconds()
 print("Waiting " + str(deltaTimeSeconds) + " seconds...")
 time.sleep(deltaTimeSeconds)
 client.run(secrets.TOKEN)
-
-
-
-
-
-
