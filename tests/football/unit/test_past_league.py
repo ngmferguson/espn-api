@@ -1,5 +1,6 @@
 from unittest import mock, TestCase
 from espn_api.football import League
+from espn_api.requests.constant import FANTASY_BASE_ENDPOINT
 import requests_mock
 import json
 
@@ -9,19 +10,23 @@ class LeaguePastTest(TestCase):
     def setUp(self):
         self.league_id = 123
         self.season = 2015
-        self.espn_endpoint = "https://fantasy.espn.com/apis/v3/games/ffl/leagueHistory/" + str(self.league_id) + "?seasonId=2015"
-        self.players_endpoint = 'https://fantasy.espn.com/apis/v3/games/ffl/seasons/' + str(self.season) + '/players?view=players_wl'
+        self.espn_endpoint =  FANTASY_BASE_ENDPOINT + 'ffl/leagueHistory/' + str(self.league_id) + '?seasonId=2015'
+        self.players_endpoint = FANTASY_BASE_ENDPOINT + 'ffl/seasons/' + str(self.season) + '/players?view=players_wl'
+        self.base_endpoint = FANTASY_BASE_ENDPOINT + 'ffl/seasons/' + str(self.season)
         with open('tests/football/unit/data/league_2015_data.json') as data:
             self.league_data = json.loads(data.read())
         with open('tests/football/unit/data/league_draft_2015.json') as data:
             self.draft_data = json.loads(data.read())
         with open('tests/football/unit/data/league_players_2015.json') as data:
             self.players_data = json.loads(data.read())
+        with open('tests/football/unit/data/pro_schedule_2024.json') as data:
+            self.pro_schedule_data = json.loads(data.read())
     
     def mock_setUp(self, m):
         m.get(self.espn_endpoint + '&view=mTeam&view=mRoster&view=mMatchup&view=mSettings', status_code=200, json=self.league_data)
         m.get(self.espn_endpoint + '&view=mDraftDetail', status_code=200, json=self.draft_data)
         m.get(self.players_endpoint, status_code=200, json=self.players_data)
+        m.get(self.base_endpoint + '?view=proTeamSchedules_wl', status_code=200, json=self.pro_schedule_data)
 
     @requests_mock.Mocker()        
     def test_create_object(self, m):
@@ -57,7 +62,7 @@ class LeaguePastTest(TestCase):
 
         first_pick = league.draft[0]
         third_pick = league.draft[2]
-        self.assertEqual(repr(first_pick), 'Pick(Eddie Lacy, Team(Show Me Your TD\'s))')
+        self.assertEqual(repr(first_pick), 'Pick(R:1 P:1, Eddie Lacy, Team(Show Me Your TD\'s))')
         self.assertEqual(third_pick.round_num, 1)
         self.assertEqual(third_pick.round_pick, 3)
     
